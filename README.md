@@ -85,4 +85,6 @@ The game demonstrates object-oriented programming, real-time game loops, collisi
 
 ## 🚀 How to Run
 
-Run the program from the `Test` class (Test.java).
+```bash
+Test.java
+```
