@@ -51,7 +51,9 @@ public class JeuSnake extends JPanel implements ActionListener, KeyListener {
     boolean VictoireJoueur2 = false; // joueur 2 qui gagne
     boolean gameRestart = false; // redémarrer la partie
 
-    String N_s = JOptionPane.showInputDialog("La taille du snake doit augmenter tous les combien de tours ?");// la variable qui contient JOptionPane ne peut pas être de type int
+    String N_s = JOptionPane.showInputDialog("“How many tiles before the snake grows?");// la variable qui contient
+                                                                                        // JOptionPane ne peut pas être
+                                                                                        // de type int
     int N = Integer.parseInt(N_s);// transforme la variable i_age de type String en type int
 
     JeuSnake(int Hauteur, int Largeur) {
@@ -86,7 +88,8 @@ public class JeuSnake extends JPanel implements ActionListener, KeyListener {
         score1 = 0;
         score2 = 0;
 
-        gameLoop = new Timer(200, this);// indique au timer à quelle fréquence elle doit s'éxecuter, ici 100 millisecondes
+        gameLoop = new Timer(200, this);// indique au timer à quelle fréquence elle doit s'éxecuter, ici 100
+                                        // millisecondes
         // et toutes les 100 mls nous allons appellé l'actionPerformed
         gameLoop.start();
 
@@ -141,26 +144,26 @@ public class JeuSnake extends JPanel implements ActionListener, KeyListener {
 
     }
 
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);
         g.setColor(Color.white);
         g.drawString("Score : ", 10, 20);
         g.setColor(Color.green);
-        g.drawString(score1 + " ", 70, 20); 
+        g.drawString(score1 + " ", 70, 20);
         g.setColor(Color.white);
         g.drawString("-" + " ", 90, 20);
         g.setColor(Color.blue);
         g.drawString(score2 + "", 110, 20);
-        //+ "-" + " " + score2,, velocityX2, velocityX);
+        // + "-" + " " + score2,, velocityX2, velocityX);
     }
 
     public void draw(Graphics g) {
         // Dessiner des lignes
-        for (int i = 0; i < Largeur/TailleDesCases; i++){
+        for (int i = 0; i < Largeur / TailleDesCases; i++) {
             // x1,y1,x2,y2
-            g.drawLine(i*TailleDesCases, 0, i*TailleDesCases, Hauteur);
-            g.drawLine(0, i*TailleDesCases, Largeur, i*TailleDesCases);
+            g.drawLine(i * TailleDesCases, 0, i * TailleDesCases, Hauteur);
+            g.drawLine(0, i * TailleDesCases, Largeur, i * TailleDesCases);
         }
 
         // Food
@@ -383,7 +386,7 @@ public class JeuSnake extends JPanel implements ActionListener, KeyListener {
         ConditionsDeVictoire();
         SortieDeTerrain();
     }
-    
+
     public void ConditionsDeVictoire() {
         if (Egalite) {
             handleDraw();
@@ -398,37 +401,38 @@ public class JeuSnake extends JPanel implements ActionListener, KeyListener {
             handleGameRestart();
         }
     }
-    
+
     public void handleDraw() {
         VictoireJoueur1 = false;
         VictoireJoueur2 = false;
         gameLoop.stop();
         delayTimer.start();
     }
-    
+
     public void handlePlayer1Win() {
         VictoireJoueur2 = false;
         gameLoop.stop();
         delayTimer.start();
         score1 += 1;
     }
-    
+
     public void handlePlayer2Win() {
         VictoireJoueur1 = false;
         gameLoop.stop();
         delayTimer.start();
         score2 += 1;
     }
-    
+
     public void handleGameRestart() {
         gameLoop.stop();
         delayTimer2.start();
     }
+
     public void SortieDeTerrain() {
         if (snakeHead.x * TailleDesCases < 0 || snakeHead.x * TailleDesCases > Largeur
-        || snakeHead.y * TailleDesCases < 0 || snakeHead.y * TailleDesCases > Hauteur) {
+                || snakeHead.y * TailleDesCases < 0 || snakeHead.y * TailleDesCases > Hauteur) {
             if (snakeHead2.x * TailleDesCases < 0 || snakeHead2.x * TailleDesCases > Largeur
-            || snakeHead2.y * TailleDesCases < 0 || snakeHead2.y * TailleDesCases > Hauteur) {
+                    || snakeHead2.y * TailleDesCases < 0 || snakeHead2.y * TailleDesCases > Hauteur) {
                 Egalite = true; // Les deux serpents sont sortis, donc c'est une égalité
             } else {
                 VictoireJoueur2 = true;
@@ -455,10 +459,10 @@ public class JeuSnake extends JPanel implements ActionListener, KeyListener {
             MouvementduJoueur1(e);
             MouvementduJoueur2(e);
         }
-    
+
         PauseEtRestart(e);
     }
-    
+
     public void MouvementduJoueur1(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_Z && mouvementY != 1) {
             mouvementX = 0;
@@ -474,7 +478,7 @@ public class JeuSnake extends JPanel implements ActionListener, KeyListener {
             mouvementY = 0;
         }
     }
-    
+
     public void MouvementduJoueur2(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP && mouvementY2 != 1) {
             mouvementX2 = 0;
@@ -490,12 +494,13 @@ public class JeuSnake extends JPanel implements ActionListener, KeyListener {
             mouvementY2 = 0;
         }
     }
-    
+
     public void PauseEtRestart(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             if (gameLoop.isRunning()) {
                 gameLoop.stop();
-            } else if (!gameLoop.isRunning() && !Egalite && !VictoireJoueur1 && !VictoireJoueur2 && score1 != 3 && score2 != 3) {
+            } else if (!gameLoop.isRunning() && !Egalite && !VictoireJoueur1 && !VictoireJoueur2 && score1 != 3
+                    && score2 != 3) {
                 gameLoop.start();
             }
         } else if (e.getKeyCode() == KeyEvent.VK_R) {
@@ -503,7 +508,7 @@ public class JeuSnake extends JPanel implements ActionListener, KeyListener {
         }
     }
 
-    //pas besoin, juste les définir
+    // pas besoin, juste les définir
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -515,4 +520,3 @@ public class JeuSnake extends JPanel implements ActionListener, KeyListener {
     // quadrillage 600*600 pixels ou 25 carré vers le bas et 24 vers la droite
     // x = horizontale et y = verticale
 }
-  
